@@ -35,6 +35,15 @@ Route ::delete('animals/{id}', [AnimalController::class, "destroy"]);
 
 // membuat route student dengan method post
 Route ::get('/students', [StudentController::class, "index"]);
+
+// route untuk menambahkan data student
 Route ::post('/students', [StudentController::class, "store"]);
+
+// route untuk mengupdate data student
 Route ::put('/students/{id}', [StudentController::class, "update"]);
+
+// route untuk menghapus data student
 Route ::delete('/students/{id}', [StudentController::class, "destroy"]);
+
+// route untuk mendapatkan detail student
+Route ::get('/students/{id}', [StudentController::class, "show"]);
