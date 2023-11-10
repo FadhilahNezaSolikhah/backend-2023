@@ -58,6 +58,8 @@ class StudentController extends Controller
             'jurusan' => 'required',
         ]);
         
+
+        // membuat data baru
         $input = [
             'nama' => $request->nama,
             'nim' => $request->nim,
@@ -93,6 +95,7 @@ class StudentController extends Controller
             'email' => $request->email ?? $student->email,
             'jurusan' => $request->jurusan ?? $student->jurusan
         ]);
+        
 
         $data = [
             'message' => 'Student is updated succesfully',

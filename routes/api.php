@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,8 @@ Route ::delete('/students/{id}', [StudentController::class, "destroy"]);
 
 // route untuk mendapatkan detail student
 Route ::get('/students/{id}', [StudentController::class, "show"]);
+
+//  Membuat Route untuk Register dan login
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('students', [StudentController::class, 'index'])->middleware('auth:sanctum');
