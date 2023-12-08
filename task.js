@@ -2,7 +2,7 @@
 const download = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve("Download selesai")
+            resolve(`Download selesai`)
         }, 3000);
     })
 }
