@@ -18,23 +18,75 @@ class Student {
         resolve(results);
       });
     });
-  };
+  }
 
   /**
    * TODO 1: Buat fungsi untuk insert data.
    * Method menerima parameter data yang akan diinsert.
    * Method mengembalikan data student yang baru diinsert.
    */
-  static create() {
+  static async create(data) {
+    // melakukan insert data ke database
+    const id = await new Promise((resolve, reject) => {
+      const sql = "INSERT INTO students SET ?";
+      db.query(sql, data, (err, results) => {
+        resolve(results.insertId);
+      });
+    });
+
+    // melakukan query berdasarkan id
+    const student = this.find(id);
+    return student;
+  }
+
+  static async find(id) {
     return new Promise((resolve, reject) => {
-      const sql = "INSERT INTO students (nama,nim,email,jurusan)VALUES (?,?,?,?";
-      const value = [data.nama, data.nim, data.email, data.jurusan];
-      db.query(sql, (err, results) => {
-        resolve(results);
+      const sql = "SELECT * FROM students WHERE id = ?";
+      db.query(sql, id, (err, results) => {
+        resolve(results[0]);
       });
     });
   }
+
+  /**
+   * TODO 2: Buat fungsi untuk update data.
+   * Method menerima parameter id dan data yang akan diupdate.
+   * Method mengembalikan data student yang baru diupdate.
+   
+   */
+  static async update(id, data) {
+    await new Promise((resolve, reject) => {
+      const sql = "UPDATE students SET ? WHERE id = ?";
+      db.query(sql, [data, id], (err, results) => {
+        resolve(results);
+      });
+    });
+    
+  // mencari data yang baru di update
+  const student = await this
+  .find(id);
+  return student;
+  }
+
+  /**
+   * TODO 3: Buat fungsi untuk delete data.
+   * Method menerima parameter id.
+   * Method mengembalikan data student yang dihapus.
+   */
+  static async delete(id) {
+    const student = await this.find(id);
+    return new Promise((resolve, reject) => {
+      const sql = "DELETE FROM students WHERE id = ?";
+      db.query(sql, id, (err, results) => {
+        resolve(student);
+      });
+    });
+  }
+
+  
 }
+
+
 
 // export class Student
 module.exports = Student;
